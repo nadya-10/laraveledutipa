@@ -1,18 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
+use App\Http\Controllers\HomeController;
 
 // Halaman utama
-Route::get('/home', function () {
-    return view('home');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Kirim pesan
-Route::post('/kirim-pesan', function (Request $request) {
-    $request->validate([
-        'message' => 'required|string|max:255',
-    ]);
-
-    return redirect('/home')->with('message', $request->message);
-})->name('kirim.pesan');
+Route::post('/kirim-pesan', [HomeController::class, 'kirimPesan'])->name('kirim.pesan');
